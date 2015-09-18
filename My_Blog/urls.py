@@ -20,7 +20,6 @@ from front_page.views import index, blog_home,blog_search, blog_post
 urlpatterns = [
     url(r'^$', index, name='index'),
     url(r'^grappelli/', include('grappelli.urls')),
-    url(r'^tinymce/', include('tinymce.urls')),
     url(r'^blog/$', blog_home.as_view(), name='blog_home'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^blog/search/',blog_search.as_view(),name='blog_search'),

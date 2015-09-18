@@ -1,0 +1,83 @@
+{% extends "index.html" %}
+{% load static from staticfiles %}
+{% load bootstrap_pagination %}
+{% block blog %}
+<div class=blog-header>
+        <div class="container">
+            <h1>Blog</h1>
+            <p class=text-faded>The official blog of Start Bootstrap where we share updates and ideas related to Start Bootstrap!</p>
+        </div>
+</div>
+
+<div class="container">
+
+        <div class="row">
+
+            <!-- Blog Entries Column -->
+            <div class="col-md-8">
+                <!-- First Blog Post -->
+                {% for title in blog_title %}
+                <h2>
+                    <a href="#">{{title}}</a>
+                </h2>
+                <p class="lead">
+                    <small>by <a href="index.php">{{title.author}}</a></small>
+                </p>
+                <p><span class="glyphicon glyphicon-time"></span><small> Posted on {{title.created}}</small></p>
+             
+                <p>{{title.description}}</p>
+                <a class="btn btn-primary" href="{% url "blog_post" title.id%}">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+
+                <hr>
+				{%endfor%}
+              
+
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                     {% bootstrap_paginate page_obj previous_label="older post" next_label="newer post"%}
+                </ul>
+
+            </div>
+            
+            <div class="col-md-4">
+
+                <!-- Blog Search Well -->
+                <div class="well">
+                    <h4>Blog Search</h4>
+                    <div class="input-group">
+                        <form method="get" action = "{% url "blog_search" %}">
+                             <input type="text" name="query" class="form-control">
+                        </form>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">
+                                <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                        </span>
+                    </div>
+                    <!-- /.input-group -->
+                </div>
+
+                <!-- Blog Categories Well -->
+                <div class="well">
+                    <h4>Blog Categories</h4>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <ul class="list-unstyled">
+                            {% for cat_name in catagories %}
+                                <li><a href="{% url "blog_cat" cat_name%}">{{cat_name}}</a>
+                                </li>
+                            {%endfor%}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                </div>
+                
+               </div>
+
+        </div>
+       </div>
+
+ 
+{%endblock%}
